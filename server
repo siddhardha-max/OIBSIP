@@ -1,0 +1,36 @@
+import socket
+
+def start_server():
+    host = "localhost"
+    port = 8000
+
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind((host, port))
+    server.listen(1)
+
+    print("Siddharth's Chat Server is online. Waiting for connection...")
+
+    conn, addr = server.accept()
+    print("Connected to", addr)
+
+    while True:
+        msg = conn.recv(1024).decode()
+        if not msg:
+            print("Client disconnected.")
+            break
+        if msg.lower() == "quit":
+            print("Chat ended by Client.")
+            break
+
+        print("Client:", msg)
+        reply = input("Siddharth: ")
+        conn.send(reply.encode())
+        if reply.lower() == "quit":
+            print("Chat ended by Siddharth.")
+            break
+
+    conn.close()
+    server.close()
+
+if __name__ == "__main__":
+    start_server()
