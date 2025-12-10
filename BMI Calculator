@@ -1,0 +1,46 @@
+# BMI Calculator by Siddharth
+
+def get_bmi(weight, height):
+    return weight / (height ** 2)
+
+def bmi_classification(bmi):
+    if bmi < 18.5:
+        return "Underweight"
+    elif 18.5 <= bmi < 25:
+        return "Normal weight"
+    elif 25 <= bmi < 30:
+        return "Overweight"
+    else:
+        return "Obese"
+
+def main():
+    print("Welcome to Siddharth's BMI Calculator!")
+
+    while True:
+        try:
+            weight = float(input("Enter your weight (kg): "))
+            if weight <= 0:
+                print("Weight must be positive!")
+                continue
+            break
+        except ValueError:
+            print("Please enter a valid number.")
+
+    while True:
+        try:
+            height = float(input("Enter your height (meters, e.g., 1.75): "))
+            if height <= 0:
+                print("Height must be positive!")
+                continue
+            break
+        except ValueError:
+            print("Please enter a valid number.")
+
+    bmi = get_bmi(weight, height)
+    category = bmi_classification(bmi)
+
+    print(f"Your BMI is: {bmi:.2f}")
+    print(f"This is classified as: {category}")
+
+if __name__ == "__main__":
+    main()
