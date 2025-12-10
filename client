@@ -1,0 +1,33 @@
+import socket
+
+def start_client():
+    host = "localhost"
+    port = 8000
+
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect((host, port))
+
+    print("Connected to Siddharth's Chat Server. Type 'quit' to exit.\n")
+
+    while True:
+        msg = input("Client: ")
+        client.send(msg.encode())
+
+        if msg.lower() == "quit":
+            print("You ended the chat.")
+            break
+
+        reply = client.recv(1024).decode()
+        if not reply:
+            print("Server disconnected.")
+            break
+
+        print("Siddharth:", reply)
+        if reply.lower() == "quit":
+            print("Siddharth ended the chat.")
+            break
+
+    client.close()
+
+if __name__ == "__main__":
+    start_client()
